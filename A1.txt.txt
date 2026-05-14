@@ -1,0 +1,12 @@
+import pandas as pd
+import numpy as np
+
+df=pd.read_csv(r"D:\Downloads\iris.csv")
+df.info()
+df.shape
+df.describe()
+df.isnull()
+df.isnull().sum()
+df.dtypes
+df["Id"]=df["Id"].astype(float)
+df["Species"].replace(['Iris-setosa','Iris-virginica'],[0,1],inplace=True)

@@ -1,0 +1,92 @@
+pip install nltk
+
+
+import nltk
+from nltk.tokenize import *
+from nltk.corpus import *
+from nltk.stem import *
+import re
+
+nltk.download('all')
+
+
+text = "Hello everyone! I am Tushar Dhanawade. I live in Pune. I like to play football and cricket."
+
+
+var = sent_tokenize(text)
+print(var)
+
+
+var = word_tokenize(text)
+print(var)
+
+
+var = re.sub('[^A-Za-z]', ' ', text)
+print(var)
+
+
+var=set(stopwords.words('english'))
+print("Stop words: ",var)
+tokens=word_tokenize(text)
+filter=[]
+for w in tokens:
+    if w not in var:
+        filter.append(w)
+print("Tokens: ",tokens)
+print()
+print("Filtered text: ",filter)
+
+
+var=["write","writing","wrote","written","read","reading"]
+ps=PorterStemmer()
+for w in var:
+    root=ps.stem(w)
+    print("Root word: ",root)
+
+
+wl=WordNetLemmatizer()
+text="studies studying cries crying"
+tt=word_tokenize(text)
+for w in tt:
+    print(f"Lemma for {w} is {wl.lemmatize(w)}")
+
+
+
+text="Hey! My name is Tushar. I stay in Pune."
+text=word_tokenize(text)
+nltk.pos_tag(text)
+
+
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+def calculate(document):
+    tokenizer=TfidfVectorizer()
+    tf_matrix=tokenizer.fit_transform(document)
+    feature_names=tokenizer.get_feature_names_out()
+    return feature_names,tf_matrix
+
+text="This is example of term Frequency. meow meow meow meow"
+document=[text]
+feature,matrix=calculate(document)
+print("TF-IDF Matrix:")
+print(feature , " ", matrix.toarray())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+p

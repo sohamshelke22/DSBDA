@@ -1,0 +1,40 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt 
+
+data=sns.load_dataset("iris")
+
+df=pd.DataFrame(df)
+
+print("Features and their type: ")
+df.dtypes
+
+plt.subplot(2,2,1)
+sns.histplot(df['sepal_length'])
+plt.title("Sepal Length")
+
+plt.subplot(2,2,2)
+sns.histplot(df['sepal_width'])
+plt.title("Sepal Width")
+
+plt.subplot(2,2,3)
+sns.histplot(df['petal_length'])
+plt.title("Petal Length")
+
+plt.subplot(2,2,4)
+sns.histplot(df['petal_width'])
+plt.title("Petal Width")
+
+plt.tight_layout()
+plt.show()
+
+plt.subplot(2,2,1)
+sns.boxplot(x=df['petal_length'])
+plt.subplot(2,2,2)
+sns.boxplot(x=df['sepal_length'])
+plt.subplot(2,2,3)
+sns.boxplot(x=df['petal_width'])
+plt.subplot(2,2,4)
+sns.boxplot(x=df['sepal_width'])
+
+plt.tight_layout()

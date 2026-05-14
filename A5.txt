@@ -1,0 +1,52 @@
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+
+df=pd.read_csv(r"D:\\Downloads\Social_Network_Ads.csv")
+df
+
+x=df[['Age', 'EstimatedSalary']]
+y=df['Purchased']
+
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.25,random_state=20)
+
+model=LogisticRegression()
+model.fit(x_train,y_train)
+
+y_pred=model.predict(x_test)
+y_pred
+
+model.score(x,y)
+
+cm=confusion_matrix(y_test,y_pred)
+cm
+
+print(confusion_matrix.__doc__)
+
+tp=cm[0][0]
+fn=cm[0][1]
+fp=cm[1][0]
+tn=cm[1][1]
+print(cm)
+
+
+accuracy=(tp+tn)/(tp+tn+fp+fn)
+error_rate=1-accuracy
+precision=tp/(tp+fp)
+recall=tp/(tp+fn)
+
+
+print("TP: ",tp)
+print("FP: ",fp)
+print("TN: ",tn)
+print("FN: ",fn)
+
+print("Accuracy: ",accuracy)
+print("error rate: ",error_rate)
+print("precision: ",precision)
+print("recall: ",recall)
+
+sns.heatmap(cm,annot=True,fmt="d")

@@ -1,0 +1,51 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+data={
+    "Student Id":[101,102,103,104,105,106,107],
+    "Name":["rohan","sahil","pranav","soham","harsh","tom","aditya"],
+    "Math":[87,98,np.nan,50,10,150,-30],
+    "Science":[23,82,98,np.nan,10,180,-30],
+    "English":[np.nan,50,10,15,-30,-20,80],
+    "Attendance":[76,82,np.nan,-23,150,89,90],
+}
+df=pd.DataFrame(data)
+print("Missing values: ")
+df.isnull().sum()
+#handled missing values
+
+df["Math"]=df["Math"].fillna(df["Math"].mean())
+df["Science"]=df["Science"].fillna(df["Science"].mean())
+df["Attendance"]=df["Attendance"].fillna(df["Attendance"].mean())
+
+df["Math"]=df["Math"].apply(lambda x: 100 if x>100 else x)
+df["Math"]=df["Math"].apply(lambda x: 0 if x<0 else x)
+df["Science"]=df["Science"].apply(lambda x: 100 if x>100 else x)
+df["Science"]=df["Science"].apply(lambda x: 0 if x<0 else x)
+
+df["Attendance"]=df["Attendance"].apply(lambda x: 100 if x>100 else x)
+df["Attendance"]=df["Attendance"].apply(lambda x: 0 if x<0 else x)
+
+plt.boxplot(df[['Math','Science','English','Attendance']])
+pt.show()
+
+#IQR METHOD
+Q1=df["Math"].quantile(0.25)
+Q3=df["Math"].quantile(0.75)
+
+IQR=Q3-Q1
+lower=Q1-1.5*IQR
+upper=Q3+1.5*IQR
+
+df=df[
+    (df["Math"]>=lower)
+    &
+    (df["Math"]<=upper) 
+    ]
+
+#data transformation normalization
+df["Normalized attendance"]=(
+    (df["Attendance"] - df["Attendance"].min())/
+    (df["Attendance"].max()-df["Attendance"].min())
+)

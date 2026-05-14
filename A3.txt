@@ -1,0 +1,42 @@
+import pandas as pd
+import numpy as np
+
+data={
+    "name":["A","B","C","D","E","F"],
+    "age":["20-30","40-50","30-40","20-30","50-60","30-40"],
+    "income":[15000,60000,78000,10000,100000,50000]
+}
+
+df=pd.DataFrame(data)
+df
+
+summary=df.groupby("age")["income"].describe()
+print(summary)
+
+median=df.groupby("age")["income"].median()
+print(median)
+
+mode_age = df['age'].mode()
+mode_income = df['income'].mode()
+print(mode_age)
+print(mode_income)
+
+income_list = df.groupby("age")["income"].apply(list)
+print(income_list)
+
+df=pd.read_csv(r"D:\Downloads\iris.csv")
+
+stats=df.groupby("Species").describe()
+print(stats)
+
+percentile=df.groupby("Species").quantile(0.5)
+std=df.groupby("Species").std()
+mean=df.groupby("Species").mean()
+median=df.groupby("Species").median()
+
+print("\nMean: ",mean)
+print("\nStandard deviation: ",std)
+print("\n(50th) percentile: ",percentile)
+print("\nMedian: ",median)
+
+
